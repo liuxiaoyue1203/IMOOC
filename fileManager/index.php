@@ -3,10 +3,10 @@ require_once 'dir.func.php';
 require_once 'file.func.php';
 require_once 'common.func.php';
 $path="file";
-$path=$_REQUEST['path']?$_REQUEST['path']:$path;
-$act=$_REQUEST['act'];
-$filename=$_REQUEST['filename'];
-$dirname=$_REQUEST['dirname'];
+@$path=$_REQUEST['path']?$_REQUEST['path']:$path;
+@$act=$_REQUEST['act'];
+@$filename=$_REQUEST['filename'];
+@$dirname=$_REQUEST['dirname'];
 $info=readDirectory($path);
 if(!$info){
 	echo "<script>alert('没有文件或目录！！！');location.href='index.php';</script>";
@@ -172,6 +172,9 @@ echo $str;
 	alertMes($mes, $redirect);
 }
 ?>
+
+
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -265,6 +268,7 @@ echo $str;
 	</ul>
 </div>
 <form action="index.php" method="post" enctype="multipart/form-data">
+<!---->
 <table width="100%" border="1" cellpadding="5" cellspacing="0" bgcolor="#ABCDEF" align="center">
 <tr id="createFolder"  style="display:none;">
 		<td>请输入文件夹名称</td>
@@ -301,6 +305,7 @@ echo $str;
 		<td>访问时间</td>
 		<td>操作</td>
 	</tr>
+<!-- 读取文件的操作-->
 <?php 
 if($info['file']){
 	$i=1;
@@ -310,7 +315,7 @@ if($info['file']){
 	<tr>
 		<td><?php echo $i;?></td>
 		<td><?php echo $val;?></td>
-		<td><?php $src=filetype($p)=="file"?"file_ico.png":"folder_ico.png";?><img src="images/<?php echo $src;?>" alt=""  title="文件"/></td>
+		<td><?php $src=filetype($p)=="file"?"file_ico.png":"folder_ico.png";?><img src="images/<?php echo $src;?>" alt="代替文本"  title="文件"/></td>
 		<td><?php echo transByte(filesize($p));?></td>
 		<td><?php $src=is_readable($p)?"correct.png":"error.png";?><img class="small" src="images/<?php echo $src;?>" alt=""/></td>
 		<td><?php $src=is_writable($p)?"correct.png":"error.png";?><img class="small" src="images/<?php echo $src;?>" alt=""/></td>
@@ -321,7 +326,7 @@ if($info['file']){
 		<td>
 		<?php 
 		//得到文件扩展名
-			$ext=strtolower(end(explode(".",$val)));
+			@$ext=strtolower(end(explode(".",$val)));
 			$imageExt=array("gif","jpg","jpeg","png");
 			if(in_array($ext,$imageExt)){
 				?>	
@@ -350,7 +355,7 @@ $i++;
 
 <!-- 读取目录的操作-->
 <?php 
-if($info['dir']){
+if(@$info['dir']){
 	$i=$i==null?1:$i;
 	foreach($info['dir'] as $val){
 		$p=$path."/".$val;

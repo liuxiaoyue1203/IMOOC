@@ -13,6 +13,7 @@ function transByte($size) {
 		$size /= 1024;
 		$i ++;
 	}
+	// round 对浮点数四舍五入 小数点后2位
 	return round ( $size, 2 ) . $arr [$i];
 }
 
