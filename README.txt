@@ -5,3 +5,4 @@
 [5] MVC架构模式分析与设计
 [6] PHP与MySQL关系大揭秘
 [7] MySQLi扩展库
+[8] JavaScript进阶
